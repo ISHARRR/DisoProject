@@ -36,7 +36,7 @@ class Table(models.Model):
 
     def as_json(self):
         return dict(
-            id=self.id,
+            id=self.pk,
             seats=self.seats,
             available=self.available
         )

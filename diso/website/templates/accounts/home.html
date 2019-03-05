@@ -21,8 +21,7 @@
 
      <h1>Reservation</h1>
      <h2> Table number: <span id="table-number"></span></h2>
-     <h2 id="av"> Number of seats: <span id="numb-seats"></span></h2>
-     <h2> Number of seats: </h2>
+     <h2> Number of seats:<span id="numb-seats"></span></h2>
      <h2> Available: <span id="table-available"></span></h2>
 
         <br>
@@ -47,6 +46,7 @@
    {#,1000);#}
 $(document).ready(function(){
     var isAvailable;
+        var numSeats;
     doPoll();
     function doPoll() {
         $.ajax({
@@ -56,7 +56,10 @@ $(document).ready(function(){
             success: function (data) {
                 data.forEach(function (tables)
                 {
+                    console.log(tables);
                     isAvailable = tables.fields.available;
+
+                    numSeats = tables.fields.seats;
                 });
 
 
@@ -64,6 +67,8 @@ $(document).ready(function(){
                 if (isAvailable) isAvailable = "True";
                 else isAvailable = "False";
                 $('#table-available').text(isAvailable);
+                $('#table-number').text(5);
+                $('#numb-seats').text(numSeats);
             }
         });
         setTimeout(doPoll,1000);
