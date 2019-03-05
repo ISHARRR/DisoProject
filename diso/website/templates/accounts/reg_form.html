@@ -1,0 +1,27 @@
+{# copies in the base.html template #}
+{% extends 'base.html' %}
+
+
+{# overrides the page title of the base template #}
+{% block head %}
+    <title>Register</title>
+
+{% endblock %}
+
+
+{# includs boby of this page#}
+{% block body %}
+
+    <div class="container">
+    <h1>Register</h1>
+        <br>
+        <div>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">submit</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{# copies in the base.html template #}
+{% extends 'base.html' %}
+
+
+{# overrides the page title of the base template #}
+{% block head %}
+    <title>Calender i think</title>
+{% endblock %}
+
+
+{# includs boby of this page#}
+{% block body %}
+
+      <div id="content-main">
+          <ul class="object-tools">
+
+            <li>
+                <a {{ next_month }}>
+                    Next month
+                </a>
+            </li>
+        </ul>
+      </div>
+
+        {{ calendar }}
+{% endblock %}

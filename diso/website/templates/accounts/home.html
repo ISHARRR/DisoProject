@@ -1,0 +1,75 @@
+{# copies in the base.html template #}
+{% extends 'base.html' %}
+
+{# overrides the page title of the base template #}
+{% block head %}
+    <title>Home</title>
+
+
+
+
+{#    <meta http-equiv="refresh" content="2">#}
+
+{% endblock %}
+
+
+{# includs boby of this page#}
+{% block body %}
+
+
+ <div  class="container">
+
+     <h1>Reservation</h1>
+     <h2> Table number: <span id="table-number"></span></h2>
+     <h2 id="av"> Number of seats: <span id="numb-seats"></span></h2>
+     <h2> Number of seats: </h2>
+     <h2> Available: <span id="table-available"></span></h2>
+
+        <br>
+        <div id="tables" >
+{#            {% for table in tables %}#}
+{#               <h2> Table number: {{ table.id }}</h2>#}
+{#               <h2 id="av"> Number of seats: {{ table.seats }}</h2>#}
+{#               <h2> Number of seats: {{ table.seats }}</h2>#}
+{#               <h2> Available: {{ table.available }}</h2>#}
+{#               <br>#}
+{#               <br>#}
+{#            {% endfor %}#}
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+   {#setTimeout(function(){#}
+   {#    location.reload();#}
+   {#,1000);#}
+$(document).ready(function(){
+    var isAvailable;
+    doPoll();
+    function doPoll() {
+        $.ajax({
+            url: 'home-tables',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                data.forEach(function (tables)
+                {
+                    isAvailable = tables.fields.available;
+                });
+
+
+
+                if (isAvailable) isAvailable = "True";
+                else isAvailable = "False";
+                $('#table-available').text(isAvailable);
+            }
+        });
+        setTimeout(doPoll,1000);
+    }
+
+});
+ </script>
+
+{% endblock %}
