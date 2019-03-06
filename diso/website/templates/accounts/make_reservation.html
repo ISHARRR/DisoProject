@@ -4,7 +4,7 @@
 
 {# overrides the page title of the base template #}
 {% block head %}
-    <title>Change Password</title>
+    <title>Make Reservations</title>
 {% endblock %}
 
 
@@ -12,12 +12,9 @@
 {% block body %}
 
     <div class="container">
-     <form method="post">
-         {% csrf_token %}
-
-         {{ form.as_p }}
-
-        <button type="submit">Submit</button>
-     </form>
+      <form>
+          {{ form.as_p }}
+          <input type="submit" value="Save">
+      </form>
     </div>
 {% endblock %}

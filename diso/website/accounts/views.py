@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from accounts.form import RegistrationForm, EditProfileForm
+from accounts.form import RegistrationForm, EditProfileForm, MakeReservationFrom
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -22,6 +22,7 @@ def home(request):
     return render(request, template_name, {'tables': tables})
 
 
+# gets table data as passes it as a json
 def update_tables(request):
     table_as_json = serializers.serialize('json', Table.objects.all())
     return HttpResponse(table_as_json, content_type='json')
@@ -30,11 +31,10 @@ def update_tables(request):
 # using the built in form class to create a new user
 def register(request):
     if request.method == 'POST':
-
         form = RegistrationForm(request.POST)
-        form.is_valid()
-        form.save()
-        return redirect('/account')
+        if form.is_valid():
+            form.save()
+            return redirect('/account')
     else:
         form = RegistrationForm()
 
@@ -56,11 +56,31 @@ def edit_profile(request):
         form = EditProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('/accounts/profile')
+            return redirect('/account/profile')
     else:
         form = EditProfileForm(instance=request.user)
         args = {'form': form}
         return render(request, 'accounts/edit_profile.html', args)
+
+
+# @login_required()
+def view_reservation(request):
+
+    return render(request, 'accounts/reservations.html')
+
+
+def make_reservation(request):
+    if request.method == 'POST':
+        form = MakeReservationFrom(request.POST)
+        if form.is_valid():
+            form.save()
+            args = {'form': form}
+            return render(request, 'accounts/make_reservation.html', args)
+    else:
+        form = MakeReservationFrom()
+
+        args = {'form': form}
+        return render(request, 'accounts/reg_form.html', args)
 
 
 # changing password if old password is known
@@ -71,10 +91,12 @@ def change_password(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return redirect('/accounts/profile')
+            return redirect('/account/profile')
         else:
-            return redirect('accounts/change_password')
+            return redirect('change_password')
     else:
         form = PasswordChangeForm(user=request.user)
         args = {'form': form}
         return render(request, 'accounts/change_password.html', args)
+
+

@@ -22,4 +22,6 @@ urlpatterns = [
             PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset-password/complete', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('home-tables', views.update_tables, name='update_tables'),
+    path('reservation', views.view_reservation, name='view_reservation'),
+    path('make-reservation', views.make_reservation, name='make_reservation'),
 ]
