@@ -18,7 +18,7 @@ class UserProfile(models.Model):
     twitter_username = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.user.username
+        return str(self.user.id)
 
 
 # creating the user profile when a user is created

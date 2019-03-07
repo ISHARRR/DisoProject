@@ -13,12 +13,16 @@
 
     <div class="container">
        <h1>Reservations</h1>
-    <p>Table: {{ table }}</p>
-    <p>Customer ID: {{ customer }}</p>
-    <p>Date: {{ date }}</p>
-    <p>Start Time: {{ start_time }}</p>
-    <p>End Time: {{ finish_time }}</p>
+{% for reservation in reservations %}
+    <p>Reservation ID: {{ reservation.id}}</p>
+    <p>Table: {{ reservation.table }}</p>
+    <p>Customer ID: {{ reservation.customer }}</p>
+    <p>Date: {{ reservation.date }}</p>
+    <p>Start Time: {{ reservation.start_time }}</p>
+    <p>End Time: {{ reservation.finish_time }}</p>
     <br>
     <br>
+{% endfor %}
     <a class="p-2 text-dark" href="{% url 'make_reservation' %}">Make Reservation</a>
+</div>
 {% endblock %}

@@ -65,14 +65,14 @@ def edit_profile(request):
 
 @login_required()
 def view_reservation(request):
-    obj = Reservation.objects.get(id=1)
+    current_user_id = request.user.id
+    print(current_user_id)
+    reservations = Reservation.objects.filter(customer__user_id=current_user_id)
+    print(reservations)
     args = {
-        'table': obj.table,
-        'customer': obj.customer,
-        'date': obj.date,
-        'start_time': obj.start_time,
-        'finish_time': obj.finish_time,
+          'reservations': reservations,
     }
+    print(args)
     return render(request, 'accounts/reservations.html', args)
 
 
