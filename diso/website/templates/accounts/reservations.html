@@ -13,11 +13,11 @@
 
     <div class="container">
        <h1>Reservations</h1>
-    <p>Table: {{ user.table }}</p>
-    <p>Customer ID: {{ user.customer }}</p>
-    <p>Date: {{ user.date }}</p>
-    <p>Start Time: {{ user.start_time }}</p>
-    <p>End Time: {{ user.finish_time }}</p>
+    <p>Table: {{ table }}</p>
+    <p>Customer ID: {{ customer }}</p>
+    <p>Date: {{ date }}</p>
+    <p>Start Time: {{ start_time }}</p>
+    <p>End Time: {{ finish_time }}</p>
     <br>
     <br>
     <a class="p-2 text-dark" href="{% url 'make_reservation' %}">Make Reservation</a>

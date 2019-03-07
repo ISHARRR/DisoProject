@@ -63,12 +63,20 @@ def edit_profile(request):
         return render(request, 'accounts/edit_profile.html', args)
 
 
-# @login_required()
+@login_required()
 def view_reservation(request):
+    obj = Reservation.objects.get(id=1)
+    args = {
+        'table': obj.table,
+        'customer': obj.customer,
+        'date': obj.date,
+        'start_time': obj.start_time,
+        'finish_time': obj.finish_time,
+    }
+    return render(request, 'accounts/reservations.html', args)
 
-    return render(request, 'accounts/reservations.html')
 
-
+@login_required()
 def make_reservation(request):
     if request.method == 'POST':
         form = MakeReservationFrom(request.POST)
