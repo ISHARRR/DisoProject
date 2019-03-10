@@ -24,4 +24,5 @@ urlpatterns = [
     path('home-tables', views.update_tables, name='update_tables'),
     path('reservation', views.view_reservation, name='view_reservation'),
     path('make-reservation', views.make_reservation, name='make_reservation'),
+    path('delete-reservation', views.delete_reservation, name='delete_reservation'),
 ]

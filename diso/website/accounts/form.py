@@ -1,7 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.urls import reverse_lazy
+
 from .models import Reservation
+from django.views.generic.edit import DeleteView
 
 
 # registration form inherited from the default django UserCreationForm
@@ -74,3 +77,6 @@ class MakeReservationFrom(forms.ModelForm):
 
         return reservation
 
+
+class DeleteReservationForm(forms.Form):
+    enter_reservation_id = forms.IntegerField(min_value=1)

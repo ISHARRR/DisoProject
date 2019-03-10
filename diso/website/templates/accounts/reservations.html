@@ -13,6 +13,7 @@
 
     <div class="container">
        <h1>Reservations</h1>
+    <br>
 {% for reservation in reservations %}
     <p>Reservation ID: {{ reservation.id}}</p>
     <p>Table: {{ reservation.table }}</p>
@@ -24,5 +25,6 @@
     <br>
 {% endfor %}
     <a class="p-2 text-dark" href="{% url 'make_reservation' %}">Make Reservation</a>
+    <a class="p-2 text-dark" href="{% url 'delete_reservation' %}">Cancel Reservation</a>
 </div>
 {% endblock %}

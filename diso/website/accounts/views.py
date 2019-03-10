@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from accounts.form import RegistrationForm, EditProfileForm, MakeReservationFrom
+from accounts.form import RegistrationForm, EditProfileForm, MakeReservationFrom, DeleteReservationForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -7,6 +7,7 @@ from .models import Reservation, Table
 from django.http import JsonResponse
 from django.core import serializers
 from django.http import HttpResponse
+from django.contrib import messages
 
 
 # Create your views here.
@@ -89,6 +90,28 @@ def make_reservation(request):
 
         args = {'form': form}
         return render(request, 'accounts/reg_form.html', args)
+
+
+@login_required()
+def delete_reservation(request):
+    if request.method == 'POST':
+        form = DeleteReservationForm(request.POST)
+        if form.is_valid():
+            reservation_id = form.cleaned_data['enter_reservation_id']
+            Reservation.objects.filter(id=reservation_id).delete()
+
+            args = {'form': form, 'reservation_id': reservation_id}
+
+            messages.info(request, 'Your reservation has been cancelled!')
+            return render(request, 'accounts/delete_reservation.html', args)
+
+    else:
+        form = DeleteReservationForm()
+
+        args = {'form': form}
+        return render(request, 'accounts/delete_reservation.html', args)
+
+
 
 
 # changing password if old password is known

@@ -75,10 +75,12 @@ class Reservation(models.Model):
         if self.finish_time <= self.start_time:
             raise ValidationError('Ending times must be after starting times')
 
+        # if self.start_time
+
         reservations = Reservation.objects.filter(date=self.date)
         if reservations.exists():
             for reservation in reservations:
                 if self.check_overlap(reservation.start_time, reservation.finish_time, self.start_time, self.finish_time):
                     raise ValidationError(
-                        'There is an overlap with another booking: ' + str(reservation.day) + ', ' + str(
+                        'There is an overlap with another booking: ' + str(reservation.date) + ', ' + str(
                             reservation.start_time) + '-' + str(reservation.finish_time))
