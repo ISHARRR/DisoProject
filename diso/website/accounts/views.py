@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
+
 from accounts.form import RegistrationForm, EditProfileForm, MakeReservationFrom, DeleteReservationForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -36,6 +38,7 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect('/account')
+        return render(request, 'accounts/reg_form.html', {'form': form})
     else:
         form = RegistrationForm()
 
@@ -71,7 +74,7 @@ def view_reservation(request):
     reservations = Reservation.objects.filter(customer__user_id=current_user_id)
     print(reservations)
     args = {
-          'reservations': reservations,
+        'reservations': reservations,
     }
     print(args)
     return render(request, 'accounts/reservations.html', args)
@@ -112,8 +115,6 @@ def delete_reservation(request):
         return render(request, 'accounts/delete_reservation.html', args)
 
 
-
-
 # changing password if old password is known
 @login_required()
 def change_password(request):
@@ -129,5 +130,3 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user)
         args = {'form': form}
         return render(request, 'accounts/change_password.html', args)
-
-
