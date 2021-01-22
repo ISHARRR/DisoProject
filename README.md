@@ -1,1 +1,1 @@
-# real-time restaurant booking system
+# Real-time restaurant booking system
